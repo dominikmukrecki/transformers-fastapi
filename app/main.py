@@ -15,4 +15,4 @@ pipe = pipeline(model=os.environ['QNA_MODEL'])
 @app.post('/' + os.environ['QNA_ENDPOINT'])
 async def qa(input_data: QNADataModel):
     result = pipe(question = input_data.question, context=input_data.context)
-    return result + QNADataModel
+    return result + input_data
