@@ -15,9 +15,10 @@ services:
       QNA_MODEL:
       QNA_ENDPOINT:
       PORT:
+      HOST:
     expose:
       - $PORT
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", $PORT]
+    command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT]
 
 networks:
   traefik:
