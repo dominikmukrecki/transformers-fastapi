@@ -4,7 +4,6 @@ services:
     build: 
       context: https://github.com/dominikmukrecki/transformers-fast-api.git#main
       dockerfile: Dockerfile
-      image: transformers-fast-api
     labels:
       - traefik.enable=true
       - traefik.docker.network=transformers-fast-api
