@@ -10,4 +10,4 @@ class QADataModel(BaseModel):
     question: str
     context: str
 
-import qna
+import app.qna
