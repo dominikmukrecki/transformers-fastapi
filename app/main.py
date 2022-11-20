@@ -9,7 +9,7 @@ class QADataModel(BaseModel):
     context: str
 
 from transformers import pipeline
-model_name = 'deepset/xlm-roberta-large-squad2'
+model_name = 'azwierzc/herbert-large-poquad'
 model = pipeline(model=model_name, tokenizer=model_name, task='question-answering')
 
 @app.post("/question_answering")
