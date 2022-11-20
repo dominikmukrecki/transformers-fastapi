@@ -1,17 +1,15 @@
 import uvicorn
-
 from fastapi import FastAPI
-
-app = FastAPI()
-
 from pydantic import BaseModel
 
 class QADataModel(BaseModel):
     question: str
     context: str
 
+app = FastAPI()
+
 from transformers import pipeline
-model_name = 'henryk/bert-base-multilingual-cased-finetuned-polish-squad2'
+model_name = 'distilbert-base-cased-distilled-squad'
 model = pipeline(model=model_name, tokenizer=model_name, task='question-answering')
 
 @app.post("/question_answering")
