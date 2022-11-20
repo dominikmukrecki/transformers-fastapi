@@ -16,3 +16,8 @@ model = pipeline(model=model_name, tokenizer=model_name, task='question-answerin
 async def qa(input_data: QADataModel):
     result = model(question = input_data.question, context=input_data.context)
     return result
+
+@app.post("/question/answering")
+async def qa(input_data: QADataModel):
+    result = model(question = input_data.question, context=input_data.context)
+    return result
