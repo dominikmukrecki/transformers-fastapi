@@ -1,0 +1,22 @@
+version: '3'
+services:
+  transformers-fast-api:
+    image: transformers-fast-api:38
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=transformers-fast-api
+      - traefik.http.routers.transformers-fast-api.service=transformers-fast-api
+      - traefik.http.services.transformers-fast-api.loadbalancer.server.port=$PORT
+    networks:
+      - traefik
+    environment:
+      QNA_MODEL:
+      QNA_ENDPOINT:
+      PORT:
+    expose:
+      - $PORT
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", $PORT]
+
+networks:
+  traefik:
+    external: true
