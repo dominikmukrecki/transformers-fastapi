@@ -8,11 +8,8 @@ class QADataModel(BaseModel):
     question: str
     context: str
 
-from transformers import pipeline, AutoModel, AutoTokenizer
-#model_name = 'azwierzc/herbert-large-poquad'
-tokenizer_name = AutoTokenizer.from_pretrained("/home/root/.cache/huggingface/transformers/herbert-large-poquad")
-model_name = AutoModel.from_pretrained("/home/root/.cache/huggingface/transformers/herbert-large-poquad")
-model = pipeline(model=model_name, tokenizer=tokenizer_name, task='question-answering')
+from transformers import pipeline
+model = pipeline('question-answering')
 
 @app.post("/question_answering")
 async def qa(input_data: QADataModel):
