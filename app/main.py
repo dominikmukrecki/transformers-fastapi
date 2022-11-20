@@ -9,9 +9,9 @@ class QADataModel(BaseModel):
     context: str
 
 from transformers import pipeline
-model = pipeline('question-answering')
+pipe = pipeline(model='azwierzc/herbert-large-poquad')
 
 @app.post("/question_answering")
 async def qa(input_data: QADataModel):
-    result = model(question = input_data.question, context=input_data.context)
+    result = pipe(question = input_data.question, context=input_data.context)
     return result
