@@ -1,6 +1,6 @@
 FROM python:3.7
 
-RUN pip install torch
+#RUN pip install torch
 
 #RUN pip install pydantic fastapi uvicorn transformers
 
