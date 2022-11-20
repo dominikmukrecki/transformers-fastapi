@@ -1,4 +1,5 @@
 import uvicorn
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -9,7 +10,7 @@ class QADataModel(BaseModel):
     context: str
 
 from transformers import pipeline
-pipe = pipeline(model='azwierzc/herbert-large-poquad')
+pipe = pipeline(model=os.environ['MODEL'])
 
 @app.post("/question_answering")
 async def qa(input_data: QADataModel):
