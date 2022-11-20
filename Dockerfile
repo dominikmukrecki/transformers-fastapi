@@ -4,7 +4,7 @@ RUN pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
 
 RUN pip install pydantic fastapi uvicorn transformers
 
-RUN git lfs install
+RUN apt-get install git-lfs
 
 EXPOSE 8000
 
