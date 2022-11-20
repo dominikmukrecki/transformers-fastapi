@@ -1,12 +1,15 @@
 version: '3'
 services:
   transformers-fast-api:
-    image: transformers-fast-api:38
+    build: 
+      context: https://github.com/dominikmukrecki/transformers-fast-api.git#main
+      dockerfile: Dockerfile
+      image: transformers-fast-api
     labels:
       - traefik.enable=true
       - traefik.docker.network=transformers-fast-api
       - traefik.http.routers.transformers-fast-api.service=transformers-fast-api
-      - traefik.http.services.transformers-fast-api.loadbalancer.server.port=$PORT
+      - traefik.http.services.transformers-fast-api.loadbalancer.server.port=8000
     networks:
       - traefik
     environment:
