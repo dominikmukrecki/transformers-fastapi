@@ -4,8 +4,6 @@ RUN pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
 
 RUN pip install pydantic fastapi uvicorn transformers
 
-EXPOSE 80
-
 EXPOSE 8000
 
 COPY ./app /app
