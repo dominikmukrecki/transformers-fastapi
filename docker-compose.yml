@@ -28,6 +28,8 @@ services:
       LOG_LEVEL:
     expose:
       - $PORT
+    ports:
+      - $PORT:$PORT
     command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT, "--log-level", $LOG_LEVEL]
 
 networks:
