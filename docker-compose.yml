@@ -28,7 +28,7 @@ services:
       LOG_LEVEL:
     expose:
       - $PORT
-    command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT, "--log-level", $LOG_LEVEL, "--workers", "2"]
+    command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT, "--log-level", $LOG_LEVEL, "--workers", $WORKERS]
 
 networks:
   traefik:
