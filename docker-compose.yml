@@ -1,6 +1,14 @@
 version: '3'
 services:
   transformers-fastapi:
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: "4G"
+        reservations:
+          cpus: "0.5"
+          memory: "1G"
     image: transformers-fastapi
     build: 
       context: https://github.com/dominikmukrecki/transformers-fastapi.git#main
