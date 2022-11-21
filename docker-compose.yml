@@ -1,25 +1,10 @@
 version: '3'
 services:
   transformers-fastapi:
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: "4G"
-        reservations:
-          cpus: "0.5"
-          memory: "1G"
     image: transformers-fastapi
     build: 
       context: https://github.com/dominikmukrecki/transformers-fastapi.git#main
       dockerfile: Dockerfile
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=transformers-fastapi
-      - traefik.http.routers.transformers-fastapi.service=transformers-fastapi
-      - traefik.http.services.transformers-fastapi.loadbalancer.server.port=8000
-    networks:
-      - traefik
     environment:
       QNA_MODEL:
       QNA_ENDPOINT:
@@ -31,7 +16,3 @@ services:
     ports:
       - $PORT:$PORT
     command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT, "--log-level", $LOG_LEVEL]
-
-networks:
-  traefik:
-    external: true
