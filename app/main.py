@@ -21,8 +21,7 @@ from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
 
 query_embedding = model.encode('How big is London')
-passage_embedding = model.encode(['London has 9,787,426 inhabitants at the 2011 census',
-                                  'London is known for its finacial district'])
+passage_embedding = model.encode(['London has 9,787,426 inhabitants at the 2011 census', 'London is known for its finacial district'])
 
 class SentenceAsker(BaseModel):
     question: str
@@ -31,5 +30,5 @@ class SentenceAsker(BaseModel):
 
 @app.post('/sentence')
 async def sent(input_data: SentenceAsker):
-    result = util.dot_score(query_embedding, passage_embedding)
+    result = util.semantic_search(query_embedding, passage_embedding, score_function=util.dot_score)
     return {"test": result}
