@@ -22,7 +22,7 @@ class SentenceDataModel(BaseModel):
     corpus: list
 
 from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
+model = SentenceTransformer(os.environ['SENTENCE_MODEL'])
 
 @app.post('/' + os.environ['SENTENCE_ENDPOINT'])
 async def sent(input_data: SentenceDataModel):
