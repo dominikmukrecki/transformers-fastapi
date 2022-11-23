@@ -20,15 +20,24 @@ app = FastAPI()
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
 
-query_embedding = model.encode('How big is London')
-passage_embedding = model.encode(['London has 9,787,426 inhabitants at the 2011 census', 'London is known for its finacial district'])
+query_embedding = model.encode('A man is eating pasta.')
+passage_embedding = model.encode(['A man is eating food.',
+          'A man is eating a piece of bread.',
+          'The girl is carrying a baby.',
+          'A man is riding a horse.',
+          'A woman is playing violin.',
+          'Two men pushed carts through the woods.',
+          'A man is riding a white horse on an enclosed ground.',
+          'A monkey is playing drums.',
+          'A cheetah is running behind its prey.'
+          ])
 
 class SentenceAsker(BaseModel):
     question: str
 #    context: str
 
 
-@app.post('/sentence')
+@app.post('/sentence1')
 async def sent(input_data: SentenceAsker):
     result = util.semantic_search(query_embedding, passage_embedding, score_function=util.dot_score)
     return {"test": result}
