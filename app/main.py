@@ -18,7 +18,7 @@ app = FastAPI()
 #    return result
 
 from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
 
 query_embedding = model.encode('How big is London')
 passage_embedding = model.encode(['London has 9,787,426 inhabitants at the 2011 census',
