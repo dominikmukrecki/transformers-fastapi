@@ -2,6 +2,9 @@ import uvicorn
 import os
 from fastapi import FastAPI
 from pydantic import BaseModel
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
