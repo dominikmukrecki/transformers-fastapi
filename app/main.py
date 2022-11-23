@@ -25,6 +25,6 @@ passage_embedding = model.encode(['London has 9,787,426 inhabitants at the 2011 
                                   'London is known for its finacial district'])
 
 @app.post('/sentence')
-async def sentence():
+async def sentence(input_data: null):
     result = util.dot_score(query_embedding, passage_embedding)
     return result
