@@ -32,4 +32,4 @@ class SentenceAsker(BaseModel):
 @app.post('/sentence')
 async def sent(input_data: SentenceAsker):
     result = util.dot_score(query_embedding, passage_embedding)
-    return result
+    return {"test": result}
