@@ -17,27 +17,14 @@ app = FastAPI()
 #    result = pipe(question = input_data.question, context=input_data.context)
 #    return result
 
+class SentenceDataModel(BaseModel):
+    query: str
+    corpus: list
+
 from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
+model = SentenceTransformer(os.environ['SENTENCE_MODEL'])
 
-query_embedding = model.encode('A man is eating pasta.')
-passage_embedding = model.encode(['A man is eating food.',
-          'A man is eating a piece of bread.',
-          'The girl is carrying a baby.',
-          'A man is riding a horse.',
-          'A woman is playing violin.',
-          'Two men pushed carts through the woods.',
-          'A man is riding a white horse on an enclosed ground.',
-          'A monkey is playing drums.',
-          'A cheetah is running behind its prey.'
-          ])
-
-class SentenceAsker(BaseModel):
-    question: str
-#    context: str
-
-
-@app.post('/sentence1')
-async def sent(input_data: SentenceAsker):
-    result = util.semantic_search(query_embedding, passage_embedding, top_k=1).corpus_id
+@app.post('/' + os.environ['SENTENCE_ENDPOINT'])
+async def sent(input_data: SentenceDataModel):
+    result = util.semantic_search(model.encode(query), model.encode(corpus), top_k=1)
     return result
