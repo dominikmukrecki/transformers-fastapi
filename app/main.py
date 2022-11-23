@@ -39,5 +39,5 @@ class SentenceAsker(BaseModel):
 
 @app.post('/sentence1')
 async def sent(input_data: SentenceAsker):
-    result = util.semantic_search(query_embedding, passage_embedding, score_function=util.dot_score)
+    result = util.semantic_search(query_embedding, passage_embedding)
     return {"test": result}
