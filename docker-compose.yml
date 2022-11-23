@@ -21,8 +21,8 @@ services:
     networks:
       - traefik
     environment:
-      QNA_MODEL:
-      QNA_ENDPOINT:
+      SENTENCE_MODEL:
+      SENTENCE_ENDPOINT:
       PORT:
       HOST:
       LOG_LEVEL:
