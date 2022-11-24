@@ -20,6 +20,8 @@ services:
       - traefik.http.services.transformers-fastapi.loadbalancer.server.port=8000
     networks:
       - traefik
+    volumes:
+      - cache:/root/.cache/
     environment:
       SENTENCE_MODEL:
       SENTENCE_ENDPOINT:
@@ -33,3 +35,5 @@ services:
 networks:
   traefik:
     external: true    
+volumes:
+  cache:
