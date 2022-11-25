@@ -10,7 +10,7 @@ class SentenceDataModel(BaseModel):
     corpus: list
 
 def myFunc(e):
-  return e['corpus_id']
+  return int(e['corpus_id'])
 
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer(os.environ['SENTENCE_MODEL'])
