@@ -22,5 +22,5 @@ async def sent(input_data: SentenceDataModel):
         score_function = util.cos_sim
     else:
         return null
-    result = util.semantic_search(model.encode(input_data.query), model.encode(input_data.corpus), score_function=util.dot_score, top_k=input_data.top_k)
+    result = util.semantic_search(model.encode(input_data.query), model.encode(input_data.corpus), score_function=score_function, top_k=input_data.top_k)
     return {'query': input_data.query, 'corpus': input_data.corpus, 'result': result, 'model': os.environ['SENTENCE_MODEL']}
