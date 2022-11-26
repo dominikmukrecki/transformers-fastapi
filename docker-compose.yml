@@ -25,7 +25,6 @@ services:
     environment:
       SENTENCE_MODEL:
       SENTENCE_ENDPOINT:
-      SENTENCE_SCORE_FUNCTION:
       PORT:
       HOST:
       LOG_LEVEL:
