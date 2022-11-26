@@ -13,6 +13,7 @@ class SentenceDataModel(BaseModel):
 
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer(os.environ['SENTENCE_MODEL'])
+model.max_seq_length = os.environ['SENTENCE_MODEL_MAX_SEQ_LENGTH']
 
 @app.post('/' + os.environ['SENTENCE_ENDPOINT'])
 async def sent(input_data: SentenceDataModel):
