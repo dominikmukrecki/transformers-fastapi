@@ -25,13 +25,9 @@ services:
     environment:
       SENTENCE_MODEL:
       SENTENCE_ENDPOINT:
-      PORT:
-      HOST:
-      LOG_LEVEL:
     expose:
       - $PORT
     command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT, "--log-level", $LOG_LEVEL, "--workers", $WORKERS]
-
 networks:
   traefik:
     external: true    
