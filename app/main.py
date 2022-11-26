@@ -14,5 +14,5 @@ model = SentenceTransformer(os.environ['SENTENCE_MODEL'])
 
 @app.post('/' + os.environ['SENTENCE_ENDPOINT'])
 async def sent(input_data: SentenceDataModel):
-    result = util.semantic_search(model.encode(input_data.query), model.encode(input_data.corpus), score_function=util.(os.environ['SENTENCE_SCORE_FUNCTION']))
+    result = util.semantic_search(model.encode(input_data.query), model.encode(input_data.corpus), score_function=util.dot_score)
     return {'query': input_data.query, 'corpus': input_data.corpus, 'result': result, 'model': os.environ['SENTENCE_MODEL']}
