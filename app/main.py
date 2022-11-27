@@ -9,7 +9,7 @@ app = FastAPI()
 
 class ScoreFunction(str, Enum):
     cos_sim = util.cos_sim
-    dot_score = uti.dot_score
+    dot_score = util.dot_score
 
 class SentenceDataModel(BaseModel):
     query: str
