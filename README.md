@@ -1,1 +1,1 @@
-# transformers-fast-api
+# sentence-transformers-fast-api
