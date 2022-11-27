@@ -9,15 +9,16 @@ services:
         reservations:
           cpus: "0.5"
           memory: "1G"  
-    image: sentence-transformers-fastapi
+    image: ${COMPOSE_PROJECT_NAME}
     build: 
       context: https://github.com/dominikmukrecki/transformers-fastapi.git#main
       dockerfile: Dockerfile
     labels:
       - traefik.enable=true
-      - traefik.docker.network=sentence-transformers-fastapi-${COMPOSE_PROJECT_NAME}
-      - traefik.http.routers.sentence-transformers-fastapi-${COMPOSE_PROJECT_NAME}.service=sentence-transformers-fastapi-${COMPOSE_PROJECT_NAME}
-      - traefik.http.services.sentence-transformers-fastapi-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8000
+      - traefik.docker.network=${COMPOSE_PROJECT_NAME}
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=rule = "Host(`${HOSTNAME}`)"
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.service=${COMPOSE_PROJECT_NAME}
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8000
     networks:
       - traefik
     hostname: ${HOSTNAME}
