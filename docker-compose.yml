@@ -24,9 +24,12 @@ services:
     volumes:
       - cache:/root/.cache/
     environment:
-      SENTENCE_MODEL:
-      SENTENCE_ENDPOINT:
-      SENTENCE_MODEL_MAX_SEQ_LENGTH:
+      SEMANTIC_SEARCH_MODEL:
+      SEMANTIC_SEARCH_ENDPOINT:
+      SEMANTIC_SEARCH_SCORE_FUNCTION:
+      SEMANTIC_SEARCH_MODEL_MAX_SEQ_LENGTH:
+      ZERO_SHOT_CLASSIFICATION_MODEL:
+      ZERO_SHOT_CLASSIFICATION_ENDPOINT:
     expose:
       - $PORT
     command: uvicorn app.main:app --host $HOST --port $PORT --log-level $LOG_LEVEL --workers $WORKERS
