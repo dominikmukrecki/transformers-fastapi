@@ -43,7 +43,7 @@ class ClassificationDataModel(BaseModel):
     labels: list
     mutli_class: bool
 
-zero_shot_classification_model = pipeline(os.environ['ZERO_SHOT_CLASSIFICATION_MODEL'], model="facebook/bart-large-mnli")
+zero_shot_classification_model = pipeline('zero-shot-classification', model="facebook/bart-large-mnli")
 
 @app.post('/' + os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'])
 async def sent(input_data: ClassificationDataModel):
