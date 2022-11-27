@@ -9,7 +9,7 @@ services:
         reservations:
           cpus: "0.5"
           memory: "1G"  
-    image: sentence-transformers-fastapi
+    image: transformers-fastapi
     container_name: ${COMPOSE_PROJECT_NAME}-fastapi
     build: 
       context: https://github.com/dominikmukrecki/sentence-transformers-fastapi.git#main
