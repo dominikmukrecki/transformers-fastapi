@@ -32,6 +32,8 @@ services:
       ZERO_SHOT_CLASSIFICATION:
       ZERO_SHOT_CLASSIFICATION_MODEL:
       ZERO_SHOT_CLASSIFICATION_ENDPOINT:
+      SUMMARIZATION:
+      SUMMARIZATION_MODEL:
     expose:
       - $PORT
     command: uvicorn app.main:app --host $HOST --port $PORT --log-level $LOG_LEVEL --workers $WORKERS
