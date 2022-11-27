@@ -1,6 +1,6 @@
 version: '3'
 services:
-  sentence-transformers-fastapi:
+  fastapi:
     deploy:
       resources:
         limits:
@@ -9,19 +9,17 @@ services:
         reservations:
           cpus: "0.5"
           memory: "1G"  
-    image: ${COMPOSE_PROJECT_NAME}
+    image: sentence-transformers-fastapi
     build: 
-      context: https://github.com/dominikmukrecki/transformers-fastapi.git#main
+      context: https://github.com/dominikmukrecki/sentence-transformers-fastapi.git#main
       dockerfile: Dockerfile
     labels:
       - traefik.enable=true
-      - traefik.docker.network=${COMPOSE_PROJECT_NAME}
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule="Host(`${HOSTNAME}`)"
+      - traefik.docker.network=traefik
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.service=${COMPOSE_PROJECT_NAME}
       - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8000
     networks:
       - traefik
-    hostname: ${HOSTNAME}
     volumes:
       - cache:/root/.cache/
     environment:
