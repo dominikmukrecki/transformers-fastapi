@@ -50,4 +50,4 @@ if os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'] is not None:
     @app.post('/' + os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'])
     async def sent(input_data: ClassificationDataModel):
         result = zero_shot_classification_model(input_data.sequence, input_data.labels, multi_label=input_data.multi_label)
-        return {'result': result, 'multi_label' = input_data.multi_label, model': os.environ['ZERO_SHOT_CLASSIFICATION_MODEL']}
+        return {'result': result, 'multi_label' : input_data.multi_label, 'model': os.environ['ZERO_SHOT_CLASSIFICATION_MODEL']}
