@@ -45,9 +45,20 @@ if os.environ['ZERO_SHOT_CLASSIFICATION'] == True:
         labels: list
         multi_label = False
 
-    zero_shot_classification_model = pipeline('zero-shot-classification', model="facebook/bart-large-mnli")
+    zero_shot_classification_model = pipeline('zero-shot-classification', model=os.environ['ZERO_SHOT_CLASSIFICATION'])
 
     @app.post('/' + os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'])
     async def sent(input_data: ClassificationDataModel):
         result = zero_shot_classification_model(input_data.sequence, input_data.labels, multi_label=input_data.multi_label)
         return {'result': result, 'multi_label' : input_data.multi_label, 'model': os.environ['ZERO_SHOT_CLASSIFICATION_MODEL']}
+
+# summarization
+
+if os.environ['SUMMARZIATION'] == True:
+
+    class SummarizationDataModel(BaseModel):
+        sequence: str
+        min_length: int
+        max_length: int
+
+    summarization_model = pipeline('summarization', model="facebook/bart-large-mnli")
