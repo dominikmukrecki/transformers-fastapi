@@ -61,4 +61,4 @@ if os.environ['SUMMARZIATION'] == True:
         min_length: int
         max_length: int
 
-    summarization_model = pipeline('summarization', model="facebook/bart-large-mnli")
+    summarization_model = pipeline('summarization', model=os.environ['SUMMARZIATION_MODEL'])
