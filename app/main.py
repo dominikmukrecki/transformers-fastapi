@@ -41,11 +41,11 @@ async def sent(input_data: SemanticSearchDataModel):
 class ClassificationDataModel(BaseModel):
     sequence: str
     labels: list
-    mutli_class: bool
+    multi_label = False
 
 zero_shot_classification_model = pipeline('zero-shot-classification', model="facebook/bart-large-mnli")
 
 @app.post('/' + os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'])
 async def sent(input_data: ClassificationDataModel):
-    result = zero_shot_classification_model(input_data.sequence, input_data.labels, multi_class=input_data.mutli_class)
-    return {'input_data': input_data, 'result': result, 'model': os.environ['ZERO_SHOT_CLASSIFICATION_MODEL']}
+    result = zero_shot_classification_model(input_data.sequence, input_data.labels, multi_label=input_data.multi_label)
+    return {'result': result, 'multi_label' = input_data.multi_label, model': os.environ['ZERO_SHOT_CLASSIFICATION_MODEL']}
