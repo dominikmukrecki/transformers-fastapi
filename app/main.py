@@ -9,7 +9,7 @@ from transformers import pipeline
 app = FastAPI()
 
 # semantic search
-if os.environ['SEMANTIC_SEARCH'] == True:
+if os.environ['SEMANTIC_SEARCH'] == 'true':
     class ScoreFunction(str, Enum):
         cos_sim = 'cos_sim'
         dot_score = 'dot_score'
@@ -38,7 +38,7 @@ if os.environ['SEMANTIC_SEARCH'] == True:
 
 # zero-shot classification
 
-if os.environ['ZERO_SHOT_CLASSIFICATION'] == True:
+if os.environ['ZERO_SHOT_CLASSIFICATION'] == 'true':
 
     class ClassificationDataModel(BaseModel):
         sequence: str
@@ -54,7 +54,7 @@ if os.environ['ZERO_SHOT_CLASSIFICATION'] == True:
 
 # summarization
 
-if os.environ['SUMMARZIATION'] == True:
+if os.environ['SUMMARZIATION'] == 'true':
 
     class SummarizationDataModel(BaseModel):
         sequence: str
