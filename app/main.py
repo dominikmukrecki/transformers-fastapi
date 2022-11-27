@@ -5,11 +5,17 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+class ScoreFunction(str, Enum):
+    cos_sim = 'cos_sim'
+    dot_score = 'dot_score'
+
 class SentenceDataModel(BaseModel):
     query: str
     corpus: list
     top_k: int
-    score_function: str
+    score_function: ScoreFunction
+    class Config:
+        use_enum_values = True
 
 from sentence_transformers import SentenceTransformer, util
 model = SentenceTransformer(os.environ['SENTENCE_MODEL'])
