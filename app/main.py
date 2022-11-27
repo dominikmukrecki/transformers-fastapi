@@ -54,11 +54,16 @@ if os.environ['ZERO_SHOT_CLASSIFICATION'] == 'true':
 
 # summarization
 
-if os.environ['SUMMARZIATION'] == 'true':
+if os.environ['SUMMARIZATION'] == 'true':
 
     class SummarizationDataModel(BaseModel):
         sequence: str
         min_length: int
         max_length: int
 
-    summarization_model = pipeline('summarization', model=os.environ['SUMMARZIATION_MODEL'])
+    summarization_model = pipeline('summarization', model=os.environ['SUMMARIZATION_MODEL'])
+
+    @app.post('/' + os.environ['SUMMARIZATION_ENDPOINT'])
+    async def sent(input_data: SummarizationDataModel):
+        result = summarization_model(input_data.sequence, max_length=input_data.max_length, min_length=input_data.min_length)
+        return {'input_data': input_data, 'result': result, 'model': os.environ['SUMMARIZATION_MODEL']}
