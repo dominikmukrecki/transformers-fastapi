@@ -45,7 +45,7 @@ if os.environ['ZERO_SHOT_CLASSIFICATION'] == 'true':
         labels: list
         multi_label = False
 
-    zero_shot_classification_model = pipeline('zero-shot-classification', model=os.environ['ZERO_SHOT_CLASSIFICATION'])
+    zero_shot_classification_model = pipeline('zero-shot-classification', model=os.environ['ZERO_SHOT_CLASSIFICATION_MODEL'])
 
     @app.post('/' + os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'])
     async def sent(input_data: ClassificationDataModel):
