@@ -3,7 +3,7 @@ import os
 from enum import Enum
 from fastapi import FastAPI
 from pydantic import BaseModel
-from SEMANTIC_SEARCH_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer, util
 from transformers import pipeline
 
 app = FastAPI()
