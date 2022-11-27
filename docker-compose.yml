@@ -29,7 +29,7 @@ services:
       SENTENCE_MODEL_MAX_SEQ_LENGTH:
     expose:
       - $PORT
-    command: ["uvicorn", "app.main:app", "--host", $HOST, "--port", $PORT, "--log-level", $LOG_LEVEL, "--workers", $WORKERS]
+    command: uvicorn app.main:app --host $HOST --port $PORT --log-level $LOG_LEVEL --workers $WORKERS
 networks:
   traefik:
     external: true    
