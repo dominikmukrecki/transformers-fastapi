@@ -4,66 +4,35 @@ from enum import Enum
 from fastapi import FastAPI
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer, util
-from transformers import pipeline
+from huggingface_hub import login
+
+login(os.environ['TOKEN'])
 
 app = FastAPI()
 
 # semantic search
-if os.environ['SEMANTIC_SEARCH'] == 'true':
-    class ScoreFunction(str, Enum):
-        cos_sim = 'cos_sim'
-        dot_score = 'dot_score'
+class ScoreFunction(str, Enum):
+    cos_sim = 'cos_sim'
+    dot_score = 'dot_score'
 
-    class SemanticSearchDataModel(BaseModel):
-        query: str
-        corpus: list
-        top_k: int
-        score_function: ScoreFunction
-        class Config:
-            use_enum_values = True
+class SemanticSearchDataModel(BaseModel):
+    query: str
+    corpus: list
+    top_k: int
+    score_function: ScoreFunction
+    class Config:
+        use_enum_values = True
 
-    semantic_search_model = SentenceTransformer(os.environ['SEMANTIC_SEARCH_MODEL'])
-    semantic_search_model.max_seq_length = int(os.environ['SEMANTIC_SEARCH_MODEL_MAX_SEQ_LENGTH'])
+semantic_search_model = SentenceTransformer(os.environ['SEMANTIC_SEARCH_MODEL'])
+semantic_search_model.max_seq_length = int(os.environ['SEMANTIC_SEARCH_MODEL_MAX_SEQ_LENGTH'])
 
-    @app.post('/' + os.environ['SEMANTIC_SEARCH_ENDPOINT'])
-    async def sent(input_data: SemanticSearchDataModel):
-        if input_data.score_function == 'dot_score':
-            score_function = util.dot_score
-        elif input_data.score_function == 'cos_sim':
-            score_function = util.cos_sim
-        else:
-            score_function = None
-        result = util.semantic_search(semantic_search_model.encode(input_data.query), semantic_search_model.encode(input_data.corpus), score_function=score_function, top_k=input_data.top_k)
-        return {'input_data': input_data, 'result': result, 'model': os.environ['SEMANTIC_SEARCH_MODEL']}
-
-# zero-shot classification
-
-if os.environ['ZERO_SHOT_CLASSIFICATION'] == 'true':
-
-    class ClassificationDataModel(BaseModel):
-        sequence: str
-        labels: list
-        multi_label = False
-
-    zero_shot_classification_model = pipeline('zero-shot-classification', model=os.environ['ZERO_SHOT_CLASSIFICATION_MODEL'])
-
-    @app.post('/' + os.environ['ZERO_SHOT_CLASSIFICATION_ENDPOINT'])
-    async def sent(input_data: ClassificationDataModel):
-        result = zero_shot_classification_model(input_data.sequence, input_data.labels, multi_label=input_data.multi_label)
-        return {'result': result, 'multi_label' : input_data.multi_label, 'model': os.environ['ZERO_SHOT_CLASSIFICATION_MODEL']}
-
-# summarization
-
-if os.environ['SUMMARIZATION'] == 'true':
-
-    class SummarizationDataModel(BaseModel):
-        sequence: str
-        min_length: int
-        max_length: int
-
-    summarization_model = pipeline('summarization', model=os.environ['SUMMARIZATION_MODEL'])
-
-    @app.post('/' + os.environ['SUMMARIZATION_ENDPOINT'])
-    async def sent(input_data: SummarizationDataModel):
-        result = summarization_model(input_data.sequence, max_length=input_data.max_length, min_length=input_data.min_length)
-        return {'input_data': input_data, 'result': result, 'model': os.environ['SUMMARIZATION_MODEL']}
+@app.post('/semantic-search')
+async def sent(input_data: SemanticSearchDataModel):
+    if input_data.score_function == 'dot_score':
+        score_function = util.dot_score
+    elif input_data.score_function == 'cos_sim':
+        score_function = util.cos_sim
+    else:
+        score_function = None
+    result = util.semantic_search(semantic_search_model.encode(input_data.query), semantic_search_model.encode(input_data.corpus), score_function=score_function, top_k=input_data.top_k)
+    return {'input_data': input_data, 'result': result, 'model': os.environ['SEMANTIC_SEARCH_MODEL']}
